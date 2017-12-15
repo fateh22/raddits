@@ -1,0 +1,101 @@
+<% @galleries.inspect%>
+<% @profile.inspect %>
+<% @messages.inspect %>
+<% @chat_users.inspect %>
+
+
+
+
+<!--div >
+			<% @chat_users.each do | chat_user | %>
+
+				<% if chat_user.first.galleries.present?  %>
+					<% if chat_user.first.galleries.find_by(:profileimage=>1).present?  %>
+						<% profile_img = chat_user.first.galleries.find_by(:profileimage=>1) %>
+						<% profile_image = profile_img.image.url %>
+					<% else%>
+						<% profile_image = "empty_profile"%>
+					<% end %>
+				<%  else  %>
+						<% profile_image = "empty_profile"%>
+				<% end %>
+				<% image_tag profile_image %>
+				<% if chat_user.first.profile.first_name.blank? && chat_user.first.profile.last_name.blank? %>
+				<%= fullname = chat_user.first.email %>
+				<% else %>
+				<%= fullname = chat_user.first.profile.first_name + " " +  chat_user.first.profile.last_name  %>
+				<% end %>
+
+			<% end %>
+	<div-->
+	<input type="hidden" id="current_user" value="<%= current_user.id %>" >
+<div class="container">
+	<div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bhoechie-tab-container">
+            
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
+              <div class="list-group">
+              <% i=1 %>
+                <% @chat_users.each do | chat_user | %>
+                <% if i==1 %>
+                <% active ="list-group-item text-center single_chat_friend active " %>
+                <% else %>
+                 <% active ="list-group-item text-center single_chat_friend" %>
+                <% end %>
+                		<% if chat_user.first.galleries.present?  %>
+                	<% if chat_user.first.galleries.find_by(:profileimage=>1).present?  %>
+						<% profile_img = chat_user.first.galleries.find_by(:profileimage=>1) %>
+						<% profile_image = profile_img.image.url %>
+					<% else%>
+						<% profile_image = "empty_profile"%>
+					<% end %>
+				<%  else  %>
+						<% profile_image = "empty_profile"%>
+				<% end %>
+				<% image_tag profile_image %>
+				<% if chat_user.first.profile.first_name.blank? && chat_user.first.profile.last_name.blank? %>
+					<% fullname = chat_user.first.email %>
+				<% else %>
+					<% fullname = chat_user.first.profile.first_name + " " +  chat_user.first.profile.last_name  %>
+				<% end %>
+
+
+                	<%= link_to userchats_message_path(chat_user.first.id), class: active, method: :put,remote: true,  :data => { :freind_id => chat_user.first.id } do %>
+			    	 	<%= image_tag profile_image ,class: "image_pro" %><br/>
+			    		<span><%=fullname %></span>
+					<% end %>
+			              
+			      <% i=i+1 %>
+ 				<% end %>
+              </div>
+            </div>
+
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab bhoechie_123">
+                <!-- flight section -->
+                <div class="chat_areaa active">
+                    <center>
+                     
+                      <h3 style="margin-top: 0;color:#55518a">Chat </h3>
+                      <div class="chat_messages">
+                      	<div id="messages"> 
+							<%= render @messages %>
+						 </div>
+
+                      </div>
+                      <div class="form_ara">
+	                      <form>
+	                      	<input type="text" data-behavior="room_speaker" class="chat_f">
+	                      </form>
+ 					  </div>
+                      
+                    </center>
+                </div>
+
+
+    
+
+            </div>
+        </div>
+  </div>
+</div>

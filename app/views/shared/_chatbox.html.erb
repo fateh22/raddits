@@ -1,0 +1,32 @@
+<div class="all_fri">
+	<div class="frindss_list">
+		<ul class="fri_ul">
+			<% if user_signed_in? %>
+			<% @chat_users.each do | chat_user | %>
+				<% if chat_user.first.galleries.present?  %>
+					<% if chat_user.first.galleries.find_by(:profileimage=>1).present?  %>
+						<% profile_img = chat_user.first.galleries.find_by(:profileimage=>1) %>
+						<% profile_image = profile_img.image.url %>
+					<% else%>
+						<% profile_image = "empty_profile"%>
+					<% end %>
+				<%  else  %>
+						<% profile_image = "empty_profile"%>
+				<% end %>
+				<li class="myfri"><%= image_tag profile_image %></li>
+
+			<% end %>
+			<% end %>
+		</ul>
+	</div>
+	<!--div class="friends_grups">
+		<% if user_signed_in? %>
+		<span>friends (<%=@chat_users.count%>)</span>
+		<% end %>
+	</div-->
+
+</div>
+
+
+
+

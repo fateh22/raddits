@@ -1,0 +1,40 @@
+<div class="row">
+<h1>My Friends</h1>
+<hr>
+<% @friends.inspect %>
+<ul class="all_friends">
+<% @friends.each do | friendship | %>
+
+<% user_id = friendship.requested_id %>
+<% user=User.find(user_id)%>
+
+	<li class="col-lg-6 col-md-6 col-sm-6 col-xs-6 single-friend">
+		<div class="friend_profile">
+			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 profile_image">
+			
+			<% if user.galleries.empty? %>
+			<% profile="empty_profile"%>
+			<% else %>
+			<% if user.galleries.find_by(:profileimage => 1).present? %>
+			<% profile_image = user.galleries.find_by(:profileimage => 1) %>
+			<% profile = profile_image.image.url %>
+			<% else %>
+			<% profile="empty_profile" %>
+			<% end %>
+			<% end %>
+			<%= image_tag profile,class: "friend_image" %>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 profile_content">
+				<a href="">
+		  	    	
+		  	    	<h2><%= user.email %></h2>
+		  	    
+		  	    	</a>
+		  	    	<p class="full_name"><%= user.profile.first_name %> <%= user.profile.last_name %></p>
+
+			</div>
+		</div>
+	</li>
+<%  end %>
+</ul>
+</div>

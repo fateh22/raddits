@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Raddits</title>
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+
+  <% if controller.controller_name== "profile" and controller.action_name=="dashboard" %>
+  <% @class="row" %>
+  <% else %>
+  <% @class="container" %>
+  <% end %>
+	<%= render "shared/menubar" %>
+	<div id="main_content" class="<%= @class%>">
+ 	<% if notice %>
+    <div class="alert alert-dismissible alert-success" style="margin-top: 30px">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Success! </strong>  <%=notice %>.
+    </div>
+	  
+	<% end %>
+	<% if alert %>
+    <div class="alert alert-dismissible alert-danger" style="margin-top: 30px" >
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Wrong!</strong> <a href="#" class="alert-link"><%= alert %>.
+  </div>
+	  
+	<% end %>
+  	<div id="content" class="col-md-12 center-block">
+    <%= yield %>
+    </div>
+  </div>
+  <%= render "shared/chatbox" %>
+  </body>
+</html>

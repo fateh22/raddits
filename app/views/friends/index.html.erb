@@ -1,0 +1,170 @@
+<% @users.inspect %>
+<% @friends.inspect %>
+<% i=0
+j=1
+ %>
+<% @friends_request.inspect %>
+<div class="row">
+	
+	<% if @friends_request.find_by(:request => true).present? %>
+	
+  <%  @friends_request= @friends_request.where(:request => 1) %>
+ <h1>Friends Request </h1>
+	<hr>
+   <div class='row'>
+    <div class='col-md-12'>
+      <div class="carousel slide media-carousel" id="media">
+        <div class="carousel-inner">
+  <% @friends_request.each do |requested_user|%>
+	
+	<% if current_user.id == requested_user.requested_id.to_i %>
+		<% @user=User.find(requested_user.user_id) %>
+
+		
+		<% if @user.galleries.empty? %>
+		<% profile_image="empty_profile" %>
+		<% else 
+			 	if @user.galleries.find_by(:profileimage => true).present?
+			 		profile_images=	@user.galleries.find_by(:profileimage => true)
+			 		profile_image = profile_images.image.url 
+			 	else
+			 		profile_image="empty_profile" 
+			 	end
+
+			end %>
+
+			<% 
+				if @user.profile.first_name.blank? || @user.profile.last_name.blank?
+					fullname=@user.email
+				else
+					fullname= @user.profile.first_name.capitalize+" "+@user.profile.last_name.capitalize
+				end 
+			%>
+			<% 
+
+			
+			if j==1 
+				active="active"
+				j=j+1 
+			end
+				
+
+			if i%4==0 %>
+
+			 <div class="item  <%= active %>">
+            <div class="row">
+			<% end %>
+	  
+	  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 single-friend-request">
+	  	<div class="friend_profile">
+	  		<div><%= image_tag profile_image,class: "profile_requested_image" %></div>
+	  		<h3><%= fullname %> </h3>
+	  		
+	  		<%= link_to "Confirm Friend", confirm_friend_path(@user),method: :patch,class: "btn btn-primary",remote: true %>
+	  	</div>
+	 </div>
+	  <% if i%4==3 %>
+	  </div>
+	  </div>
+	  <% end
+
+	  	i=i+1
+	   %>
+
+	<% end %>
+	
+  <% end %>
+          </div>
+    
+      </div> 
+
+    </div>
+       <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
+        <a data-slide="next" href="#media" class="right carousel-control">›</a>
+  </div>
+<% end %>
+
+</div>
+
+
+
+
+ 
+
+   
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<br/>
+<h1> Find friends</h1>
+<hr>
+</div>
+<div class="row">
+<ul class="all_friends">
+<% @users.each do |user| %>
+<% if current_user!=user %>
+	
+
+	<% if Friendship.find_by(:requested_id=>user.id.to_s,:user_id=>current_user.id,:friend=>1).present? || Friendship.find_by(:requested_id=>current_user.id.to_s,:user_id=>user.id,:friend=>1).present? || Friendship.find_by(:request=>1,:user_id=>user.id).present?
+		%>
+
+	<% else %>
+	<li class="col-lg-6 col-md-6 col-sm-6 col-xs-6 single-friend">
+		<div class="friend_profile">
+			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 profile_image">
+			
+			<% if user.galleries.empty? %>
+			<% profile="empty_profile"%>
+			<% else %>
+			<% if user.galleries.find_by(:profileimage => 1).present? %>
+			<% profile_image = user.galleries.find_by(:profileimage => 1) %>
+			<% profile = profile_image.image.url %>
+			<% else %>
+			<% profile="empty_profile" %>
+			<% end %>
+			<% end %>
+			<%= image_tag profile,class: "friend_image" %>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 profile_content">
+				<a href="">
+		  	    	
+		  	    	<h2><%= user.email %></h2>
+		  	    
+		  	    	</a>
+		  	    	<p class="full_name"><%= user.profile.first_name %> <%= user.profile.last_name %></p>
+		  	    	<p class="friend_button"><% unless @friends.find_by(:requested_id=>user.id).blank? %>
+						<% if @friends.find_by(:requested_id=>user.id).request %>
+
+						<%= link_to  cancel_friend_path(user), method: :delete,class: "btn icon-btn btn-danger button_friend",remote: true do %>
+							    <span class="glyphicon glyphicon-remove-sign "></span> Cancel Request
+						<% end %>
+
+						<% end %>
+						<% else %>
+						<%= link_to  request_friend_path(user),method: :put, class: "btn icon-btn btn-primary button_friend",remote: true  do %>
+							    <span class="glyphicon glyphicon-user "></span> Add Friend
+						<% end %>
+
+						<% end %>
+							
+						</p>
+			</div>
+		</div>
+	</li>
+
+	<% end %>
+<% end %>
+<% end %>
+</ul>
+</div>	
