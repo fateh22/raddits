@@ -1,3 +1,8 @@
 <div class="message">
-<p><%= message.content %><p>
+<%  if message.user_id == user_id %>
+<p class="me"><%= message.content %></p>
+<% else %>
+  <p class="myfrie"><%= message.content %></p>
+
+<% end %>
 </div>

@@ -76,10 +76,12 @@
                 <div class="chat_areaa active">
                     <center>
                      
-                      <h3 style="margin-top: 0;color:#55518a">Chat </h3>
+                      <h3 style="margin-top: 0;color:#55518a" class="chat_live">Chat </h3>
                       <div class="chat_messages">
-                      	<div id="messages"> 
-							<%= render @messages %>
+                      	<div id="messages">
+                      	<% @user_id=current_user.id%>
+						<%= render partial: @messages ,locals: { user_id: @user_id}%>
+				 
 						 </div>
 
                       </div>

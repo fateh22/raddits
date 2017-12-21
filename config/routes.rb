@@ -44,11 +44,21 @@ Rails.application.routes.draw do
     end
     
   end
+
+
+  namespace :api do 
+    namespace :v1 do 
+
+        resources :sessions
+        resources :links                             
+    end 
+  end 
+
   resources :links do
-  	member do
-  		put "like" , to: "links#upvote"
-  		put "dislike", to: "links#downvote" 
-  	end
+    	member do
+    		put "like" , to: "links#upvote"
+    		put "dislike", to: "links#downvote" 
+    	end
     resources :comments
   end
   root 'links#index'

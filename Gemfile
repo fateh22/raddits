@@ -80,3 +80,5 @@ gem 'dropzonejs-rails'
 
 gem 'em-hiredis'
 gem 'redis'
+
+gem 'simple_token_authentication', '~> 1.0'

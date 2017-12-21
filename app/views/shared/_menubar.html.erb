@@ -50,9 +50,9 @@
 				  </a>
 
 				  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-		
-				   
+					   
 				     <li><%= link_to 'Edit profile', user_profile_index_path(current_user), :class => 'dropdown-item' %></li>
+				      <li><%= link_to 'Chat', messages_path(current_user), :class => 'dropdown-item' %></li>
 				     <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'dropdown-item'  %></li>
 				  </ul>
 				</li>

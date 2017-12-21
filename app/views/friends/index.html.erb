@@ -1,8 +1,8 @@
 <% @users.inspect %>
 <% @friends.inspect %>
-<% i=0
-j=1
- %>
+	<% i=0
+		j=1
+	%>
 <% @friends_request.inspect %>
 <div class="row">
 	
@@ -70,7 +70,8 @@ j=1
 
 	  	i=i+1
 	   %>
-
+       <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
+        <a data-slide="next" href="#media" class="right carousel-control">›</a>
 	<% end %>
 	
   <% end %>
@@ -79,8 +80,7 @@ j=1
       </div> 
 
     </div>
-       <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
-        <a data-slide="next" href="#media" class="right carousel-control">›</a>
+
   </div>
 <% end %>
 

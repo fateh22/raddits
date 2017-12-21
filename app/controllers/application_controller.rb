@@ -16,9 +16,7 @@ class ApplicationController < ActionController::Base
 				@cover="unknown"
 			 	end
 			 	 if @galleries.find_by(:profileimage => 1).present?
-				
-			 	 
-				 
+							 
 				 	profile_image = @galleries.find_by(:profileimage => 1)
 					@profile_pic = profile_image.image.url 
 				else

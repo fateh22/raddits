@@ -1,1 +1,1 @@
-jQuery('#messages').html('<%= j (render @messages) %>');
+jQuery('#messages').html('<%= j ( render partial: @messages,locals: { user_id: current_user.id}) %>');

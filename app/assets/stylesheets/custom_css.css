@@ -510,3 +510,12 @@ p.me {
     width: 100%;
     padding: 10px 0;
 }
+
+.chat_live {
+    border-bottom: 1px solid #cccccc;
+    padding: 10px;
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+

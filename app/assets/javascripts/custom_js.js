@@ -88,3 +88,8 @@ $(document).ready(function() {
 
 
 
+jQuery(document).ready(function() {
+	var Height=$('.message')[0].scrollHeight;
+jQuery(".chat_messages").scrollTop(Height*50);
+
+});
