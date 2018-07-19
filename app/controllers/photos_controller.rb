@@ -11,7 +11,7 @@ class PhotosController < ApplicationController
 	@image = current_user.galleries.new(image_params)
 		respond_to do |format|
 	    if @image.save
-	    format.html { redirect_to photos_path, notice: 'Image   successfully Uploaded.' }
+	    	format.html { redirect_to photos_path, notice: 'Image   successfully Uploaded.' }
 	   
 	      format.json { render :index, status: :ok, fileID: @image.id ,:status => 200, message: "success" }
 	    else
